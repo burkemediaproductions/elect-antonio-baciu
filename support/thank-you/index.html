@@ -268,14 +268,16 @@
 <script>
 (function () {
   var params = new URLSearchParams(window.location.search);
+
+  var submitted = params.get('submitted');
   var options = params.get('options');
   var amount = params.get('amount');
   var email = params.get('email');
-  var submitted = params.get('submitted');
   var sessionId = params.get('session_id');
   var firstName = params.get('firstName');
   var lastName = params.get('lastName');
 
+  var heroTitle = document.getElementById('hero-title');
   var heading = document.getElementById('thank-you-heading');
   var copy = document.getElementById('thank-you-copy');
   var summary = document.getElementById('support-summary');
@@ -285,12 +287,32 @@
   var emailLine = document.getElementById('email-summary-line');
   var emailText = document.getElementById('support-email-text');
 
-  function getFullName(first, last) {
-    return [first || '', last || ''].join(' ').trim();
+  function clean(value) {
+    return String(value || '').replace(/\+/g, ' ').trim();
   }
 
-  function getFriendlyName(name) {
-    return name ? ', ' + name : '';
+  function getFullName(first, last) {
+    return [clean(first), clean(last)].filter(Boolean).join(' ').trim();
+  }
+
+  function setPersonalThankYou(name, type) {
+    var hasName = Boolean(name);
+
+    if (heroTitle) {
+      heroTitle.textContent = hasName ? 'Thank you, ' + name + '.' : 'Your support matters.';
+    }
+
+    if (heading) {
+      heading.textContent = hasName ? 'Thank you, ' + name + '!' : 'Thank you for your support!';
+    }
+
+    if (copy) {
+      if (type === 'donation') {
+        copy.textContent = 'Your donation was successfully received and your support means a great deal to Antonio’s campaign.';
+      } else {
+        copy.textContent = 'Your submission has been received and sent to Team Antonio.';
+      }
+    }
   }
 
   function showSummary(readableOptions) {
@@ -301,7 +323,7 @@
   function showAmount(value) {
     if (!value || !donationLine || !donationText) return;
     donationLine.hidden = false;
-    donationText.textContent = value.charAt(0) === '$' ? value : '$' + value;
+    donationText.textContent = String(value).charAt(0) === '$' ? value : '$' + value;
   }
 
   function showEmail(value) {
@@ -310,22 +332,26 @@
     emailText.textContent = value;
   }
 
-  var fullName = getFullName(firstName, lastName);
+  var queryName = getFullName(firstName, lastName);
 
+  // This covers normal support form submissions and Stripe redirects, because
+  // the checkout success URL also includes submitted=1, firstName, and lastName.
   if (submitted) {
     var readableOptions = options ? options.split('|').join(', ') : 'your support submission';
+    var isDonation = readableOptions.toLowerCase().indexOf('donate') !== -1 || Boolean(sessionId);
 
-    if (heading) heading.textContent = 'Thank you for your support' + getFriendlyName(fullName) + '!';
-    if (copy) copy.textContent = 'Your submission has been received and sent to the campaign.';
+    setPersonalThankYou(queryName, isDonation ? 'donation' : 'support');
     showSummary(readableOptions);
     showAmount(amount || '');
     showEmail(email || '');
+
     return;
   }
 
+  // Backup path: if Stripe returns only a session_id, look up the donor name
+  // from Stripe metadata and still personalize the thank-you page.
   if (sessionId) {
-    if (heading) heading.textContent = 'Thank you for your donation!';
-    if (copy) copy.textContent = 'Your donation was successfully received and your support means a great deal to the campaign.';
+    setPersonalThankYou('', 'donation');
     showSummary('Donation to Antonio Baciu');
 
     fetch('/.netlify/functions/get-checkout-session?session_id=' + encodeURIComponent(sessionId))
@@ -333,16 +359,12 @@
       .then(function (data) {
         if (!data || data.error) return;
 
-        var stripeFirst = data.metadata && data.metadata.first_name ? data.metadata.first_name : '';
-        var stripeLast = data.metadata && data.metadata.last_name ? data.metadata.last_name : '';
-        var stripeEmail = data.customer_email || (data.metadata && data.metadata.email) || '';
+        var metadata = data.metadata || {};
+        var stripeName = getFullName(metadata.first_name, metadata.last_name);
+        var stripeEmail = data.customer_email || metadata.email || '';
         var stripeAmount = data.amount_total ? ('$' + (data.amount_total / 100).toFixed(2)) : '';
-        var stripeName = getFullName(stripeFirst, stripeLast);
 
-        if (stripeName && heading) {
-          heading.textContent = 'Thank you for your donation, ' + stripeName + '!';
-        }
-
+        setPersonalThankYou(stripeName, 'donation');
         showAmount(stripeAmount);
         showEmail(stripeEmail);
       })
@@ -353,8 +375,7 @@
     return;
   }
 
-  if (heading) heading.textContent = 'Thank you for your support!';
-  if (copy) copy.textContent = 'We appreciate your support for Antonio Baciu for Cathedral City Council District 5.';
+  setPersonalThankYou('', 'support');
 }());
 </script>
 
