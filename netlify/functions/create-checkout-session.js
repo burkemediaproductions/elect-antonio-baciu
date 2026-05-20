@@ -46,8 +46,8 @@ exports.handler = async (event) => {
 
     const session = await stripe.checkout.sessions.create({
       mode: "payment",
-      success_url: `${baseUrl}/get-involved/thank-you/?${successParams.toString()}&session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${baseUrl}/get-involved/#campaign-form`,
+      success_url: `${baseUrl}/support/thank-you/?${successParams.toString()}&session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${baseUrl}/support/#campaign-form`,
       customer_email: body.email || undefined,
       billing_address_collection: "required",
       line_items: [
