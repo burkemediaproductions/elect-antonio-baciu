@@ -1602,3 +1602,88 @@ details p { margin: 0; padding: 0 1.2rem 1.2rem; color: var(--muted); }
   color: var(--white);
 }
 
+/* Campaign contact icon links */
+.footer-contact-list,
+.campaign-contact-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.65rem;
+}
+
+.icon-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  min-width: 0;
+  text-decoration: none;
+}
+
+.icon-link span {
+  overflow-wrap: anywhere;
+}
+
+.footer-contact .icon-link {
+  color: rgba(255, 255, 255, 0.86);
+}
+
+.footer-contact .icon-link:hover,
+.footer-contact .icon-link:focus-visible {
+  color: var(--white);
+  text-decoration: underline;
+  text-underline-offset: 0.25em;
+}
+
+.footer-contact-icon,
+.campaign-contact-icon {
+  width: 1.15rem;
+  height: 1.15rem;
+  flex: 0 0 1.15rem;
+  object-fit: contain;
+  display: inline-block;
+}
+
+.footer-contact-icon {
+  filter: brightness(0) invert(1);
+  opacity: 0.9;
+}
+
+.campaign-contact-card {
+  margin: 1.4rem 0;
+  padding: 1.2rem;
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.72);
+  box-shadow: var(--shadow-soft);
+}
+
+.campaign-contact-card h3 {
+  margin: 0 0 0.85rem;
+  color: var(--blue-900);
+  font-size: clamp(1.65rem, 3vw, 2.25rem);
+}
+
+.campaign-contact-list .icon-link {
+  color: var(--blue-900);
+  font-weight: 900;
+}
+
+.campaign-contact-list .icon-link:hover,
+.campaign-contact-list .icon-link:focus-visible {
+  color: var(--red-600);
+}
+
+@media (max-width: 760px) {
+  .footer-contact-list,
+  .campaign-contact-list {
+    gap: 0.8rem;
+  }
+
+  .footer-contact-icon,
+  .campaign-contact-icon {
+    width: 1.25rem;
+    height: 1.25rem;
+    flex-basis: 1.25rem;
+  }
+}
