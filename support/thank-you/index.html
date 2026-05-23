@@ -318,6 +318,42 @@
     return [clean(first), clean(last)].filter(Boolean).join(' ').trim();
   }
 
+  function readSupportFallback() {
+    try {
+      var raw = localStorage.getItem('antonioSupportThankYou');
+      if (!raw) return null;
+
+      var data = JSON.parse(raw);
+      var maxAge = 1000 * 60 * 60 * 24;
+
+      if (data.savedAt && Date.now() - Number(data.savedAt) > maxAge) {
+        localStorage.removeItem('antonioSupportThankYou');
+        return null;
+      }
+
+      return data;
+    } catch (error) {
+      return null;
+    }
+  }
+
+  var fallback = readSupportFallback();
+
+  if (!submitted && !sessionId && fallback) {
+    submitted = fallback.submitted;
+    options = fallback.options;
+    amount = fallback.amount;
+    email = fallback.email;
+    firstName = fallback.firstName;
+    lastName = fallback.lastName;
+  } else if ((submitted || sessionId) && fallback) {
+    firstName = firstName || fallback.firstName;
+    lastName = lastName || fallback.lastName;
+    email = email || fallback.email;
+    amount = amount || fallback.amount;
+    options = options || fallback.options;
+  }
+
   function setPersonalThankYou(name, type) {
     var hasName = Boolean(name);
 
@@ -357,9 +393,7 @@
 
   var queryName = getFullName(firstName, lastName);
 
-  // This covers normal support form submissions and Stripe redirects, because
-  // the checkout success URL also includes submitted=1, firstName, and lastName.
-  if (submitted) {
+  if (submitted || fallback) {
     var readableOptions = options ? options.split('|').join(', ') : 'your support submission';
     var isDonation = readableOptions.toLowerCase().indexOf('donate') !== -1 || Boolean(sessionId);
 
@@ -371,11 +405,11 @@
     return;
   }
 
-  // Backup path: if Stripe returns only a session_id, look up the donor name
-  // from Stripe metadata and still personalize the thank-you page.
   if (sessionId) {
-    setPersonalThankYou('', 'donation');
+    setPersonalThankYou(queryName, 'donation');
     showSummary('Donation to Antonio Baciu');
+    showAmount(amount || '');
+    showEmail(email || '');
 
     fetch('/.netlify/functions/get-checkout-session?session_id=' + encodeURIComponent(sessionId))
       .then(function (response) { return response.json(); })
@@ -383,13 +417,13 @@
         if (!data || data.error) return;
 
         var metadata = data.metadata || {};
-        var stripeName = getFullName(metadata.first_name, metadata.last_name);
+        var stripeName = getFullName(metadata.first_name || metadata.firstName, metadata.last_name || metadata.lastName);
         var stripeEmail = data.customer_email || metadata.email || '';
         var stripeAmount = data.amount_total ? ('$' + (data.amount_total / 100).toFixed(2)) : '';
 
-        setPersonalThankYou(stripeName, 'donation');
-        showAmount(stripeAmount);
-        showEmail(stripeEmail);
+        setPersonalThankYou(stripeName || queryName, 'donation');
+        showAmount(stripeAmount || amount);
+        showEmail(stripeEmail || email);
       })
       .catch(function (error) {
         console.error('Unable to load Stripe session details:', error);
@@ -398,7 +432,7 @@
     return;
   }
 
-  setPersonalThankYou('', 'support');
+  setPersonalThankYou(queryName, 'support');
 }());
 </script>
 

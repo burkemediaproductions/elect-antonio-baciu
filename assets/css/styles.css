@@ -1686,3 +1686,40 @@ details p { margin: 0; padding: 0 1.2rem 1.2rem; color: var(--muted); }
     flex-basis: 1.25rem;
   }
 }
+
+/* Security / form thank-you refinements */
+.custom-amount-wrap[hidden],
+.netlify-recaptcha-wrap[hidden] {
+  display: none !important;
+}
+
+.netlify-recaptcha-wrap {
+  margin-top: 0.35rem;
+}
+
+.contact-thank-you-card {
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: clamp(1.4rem, 4vw, 2.6rem);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: var(--white);
+  box-shadow: var(--shadow);
+}
+
+.contact-thank-you-card h2 {
+  margin-bottom: 1rem;
+  color: var(--blue-900);
+  font-size: clamp(2.4rem, 5vw, 4rem);
+}
+
+.contact-thank-you-card p {
+  color: var(--muted);
+  font-size: 1.08rem;
+}
+
+.form-security-note {
+  margin-top: 1rem;
+  color: var(--muted);
+  font-size: 0.95rem;
+}

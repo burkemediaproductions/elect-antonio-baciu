@@ -302,9 +302,7 @@
 
   function updateDonationAmount() {
     var selectedDonation = donationChoiceInputs.find(function (input) { return input.checked; });
-    var donateSelected = optionInputs.some(function (input) {
-      return input.checked && input.getAttribute('data-toggle') === 'donate-panel';
-    });
+    var donateSelected = isDonateSelected();
     var isOther = donateSelected && selectedDonation && selectedDonation.value === 'other';
 
     if (customAmountWrap) customAmountWrap.hidden = !isOther;
@@ -320,6 +318,37 @@
       donationAmountFinal.value = selectedDonation.value === 'other'
         ? (customAmountInput ? customAmountInput.value.trim() : '')
         : selectedDonation.value;
+    }
+  }
+
+
+  function isDonateSelected() {
+    return optionInputs.some(function (input) {
+      return input.checked && input.getAttribute('data-toggle') === 'donate-panel';
+    });
+  }
+
+  function ensureDefaultDonationAmount() {
+    if (!isDonateSelected()) return;
+    var selectedDonation = donationChoiceInputs.find(function (input) { return input.checked; });
+    if (!selectedDonation && donationChoiceInputs.length) {
+      donationChoiceInputs[0].checked = true;
+    }
+  }
+
+  function saveSupportThankYouFallback(selected, formData, donationAmount) {
+    try {
+      localStorage.setItem('antonioSupportThankYou', JSON.stringify({
+        submitted: '1',
+        options: selected.join('|'),
+        amount: donationAmount || '',
+        email: formData.get('email') || '',
+        firstName: formData.get('first-name') || '',
+        lastName: formData.get('last-name') || '',
+        savedAt: Date.now()
+      }));
+    } catch (error) {
+      console.warn('Unable to save support thank-you fallback:', error);
     }
   }
 
@@ -339,6 +368,7 @@
     }
 
     updateVolunteerOther();
+    ensureDefaultDonationAmount();
     updateDonationAmount();
     updateEndorserFields();
   }
@@ -376,6 +406,7 @@
     }
 
     updateVolunteerOther();
+    ensureDefaultDonationAmount();
     updateDonationAmount();
     updateEndorserFields();
 
@@ -385,9 +416,7 @@
 
     event.preventDefault();
 
-    var donateSelected = optionInputs.some(function (input) {
-      return input.checked && input.getAttribute('data-toggle') === 'donate-panel';
-    });
+    var donateSelected = isDonateSelected();
 
     var formData = new FormData(form);
     var donationAmount = donationAmountFinal ? donationAmountFinal.value || '' : '';
@@ -411,6 +440,8 @@
     if (email) query.set('email', email);
     if (firstName) query.set('firstName', firstName);
     if (lastName) query.set('lastName', lastName);
+
+    saveSupportThankYouFallback(selected, formData, donationAmount);
 
     try {
       await fetch('/', {
@@ -491,6 +522,76 @@
   });
 
   togglePanels();
+}());
+
+
+(function () {
+  var contactForm = document.getElementById('contact-form');
+  if (!contactForm) return;
+
+  var contactThankYouBase = '/contact/thank-you/';
+
+  function saveContactThankYouFallback(formData) {
+    try {
+      localStorage.setItem('antonioContactThankYou', JSON.stringify({
+        submitted: '1',
+        firstName: formData.get('first-name') || '',
+        lastName: formData.get('last-name') || '',
+        email: formData.get('email') || '',
+        topic: formData.get('topic') || '',
+        savedAt: Date.now()
+      }));
+    } catch (error) {
+      console.warn('Unable to save contact thank-you fallback:', error);
+    }
+  }
+
+  contactForm.addEventListener('submit', async function (event) {
+    if (!contactForm.checkValidity()) return;
+
+    event.preventDefault();
+
+    var formData = new FormData(contactForm);
+    var submitButton = contactForm.querySelector('button[type="submit"]');
+    var originalText = submitButton ? submitButton.textContent : '';
+
+    var query = new URLSearchParams();
+    query.set('submitted', '1');
+
+    var firstName = formData.get('first-name') || '';
+    var lastName = formData.get('last-name') || '';
+    var email = formData.get('email') || '';
+    var topic = formData.get('topic') || '';
+
+    if (firstName) query.set('firstName', firstName);
+    if (lastName) query.set('lastName', lastName);
+    if (email) query.set('email', email);
+    if (topic) query.set('topic', topic);
+
+    saveContactThankYouFallback(formData);
+
+    if (submitButton) {
+      submitButton.disabled = true;
+      submitButton.textContent = 'Sending...';
+    }
+
+    try {
+      await fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams(formData).toString()
+      });
+
+      window.location.href = contactThankYouBase + '?' + query.toString();
+    } catch (error) {
+      console.error(error);
+      alert('Something went wrong while sending your message. Please try again.');
+      if (submitButton) {
+        submitButton.disabled = false;
+        submitButton.textContent = originalText || 'Send Message';
+      }
+    }
+  });
 }());
 
 
