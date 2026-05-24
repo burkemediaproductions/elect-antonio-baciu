@@ -305,8 +305,21 @@
     var donateSelected = isDonateSelected();
     var isOther = donateSelected && selectedDonation && selectedDonation.value === 'other';
 
-    if (customAmountWrap) customAmountWrap.hidden = !isOther;
-    if (customAmountInput) customAmountInput.required = !!isOther;
+    // Keep the visible custom amount field truly hidden unless "Other" is selected.
+    // This uses both the hidden attribute and inline display as a safety net.
+    if (customAmountWrap) {
+      customAmountWrap.hidden = !isOther;
+      customAmountWrap.setAttribute('aria-hidden', isOther ? 'false' : 'true');
+      customAmountWrap.style.display = isOther ? '' : 'none';
+    }
+
+    if (customAmountInput) {
+      customAmountInput.required = !!isOther;
+
+      if (!isOther) {
+        customAmountInput.value = '';
+      }
+    }
 
     if (!donateSelected || !selectedDonation) {
       if (donationAmountFinal) donationAmountFinal.value = '';

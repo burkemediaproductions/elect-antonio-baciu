@@ -1,0 +1,11 @@
+/* Donation custom amount visibility safety net */
+[hidden],
+#custom-amount-wrap[hidden],
+.custom-amount-wrap[hidden],
+.support-panel[hidden],
+.final-support-fields[hidden],
+.other-help-wrap[hidden],
+.endorsement-name-wrap[hidden],
+.endorsement-message-wrap[hidden] {
+  display: none !important;
+}
