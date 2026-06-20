@@ -651,3 +651,26 @@
     if (event.key === 'Escape' && modal.classList.contains('is-open')) closeLightbox();
   });
 }());
+
+(function () {
+  var rotator = document.querySelector('[data-endorsement-rotator]');
+  if (!rotator) return;
+  var slides = Array.prototype.slice.call(rotator.querySelectorAll('[data-endorsement-slide]'));
+  if (slides.length < 2) return;
+  var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reducedMotion) return;
+  var index = 0;
+  var paused = false;
+  function showSlide(nextIndex) {
+    slides[index].classList.remove('is-active');
+    index = nextIndex % slides.length;
+    slides[index].classList.add('is-active');
+  }
+  rotator.addEventListener('mouseenter', function () { paused = true; });
+  rotator.addEventListener('mouseleave', function () { paused = false; });
+  rotator.addEventListener('focusin', function () { paused = true; });
+  rotator.addEventListener('focusout', function () { paused = false; });
+  window.setInterval(function () {
+    if (!paused) showSlide(index + 1);
+  }, 4200);
+})();

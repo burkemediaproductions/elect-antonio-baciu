@@ -1723,3 +1723,270 @@ details p { margin: 0; padding: 0 1.2rem 1.2rem; color: var(--muted); }
   color: var(--muted);
   font-size: 0.95rem;
 }
+
+
+/* Endorsement SEO/AIO page and homepage rotator */
+.home-endorsements {
+  position: relative;
+  overflow: hidden;
+}
+.home-endorsement-layout,
+.endorsement-overview-grid {
+  display: grid;
+  gap: clamp(1.5rem, 4vw, 3rem);
+  align-items: stretch;
+}
+.home-endorsement-rotator {
+  position: relative;
+  min-height: min(76vw, 700px);
+  border-radius: var(--radius-lg);
+  background: var(--white);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  border: 1px solid var(--line);
+}
+.home-endorsement-card {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  opacity: 0;
+  transform: translateX(2rem) scale(.985);
+  transition: opacity .55s ease, transform .55s ease;
+  pointer-events: none;
+  background: var(--white);
+}
+.home-endorsement-card.is-active {
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+}
+
+.home-endorsement-card--text .home-endorsement-media,
+.endorsement-directory-image--text {
+  display: grid;
+  place-items: center;
+  min-height: 360px;
+  padding: clamp(1.2rem, 4vw, 2rem);
+  background:
+    radial-gradient(circle at 20% 20%, rgba(255,255,255,.34), transparent 32%),
+    linear-gradient(135deg, var(--blue-900), var(--blue-700));
+}
+.endorsement-directory-image--text {
+  aspect-ratio: 1.12 / 1;
+  min-height: auto;
+}
+.endorsement-text-badge {
+  display: grid;
+  gap: .55rem;
+  width: min(100%, 520px);
+  padding: clamp(1.3rem, 4vw, 2.2rem);
+  border: 3px solid rgba(255,255,255,.88);
+  border-radius: 30px;
+  color: var(--white);
+  text-align: center;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.25), var(--shadow-soft);
+}
+.endorsement-text-badge span,
+.endorsement-text-badge em {
+  font-weight: 900;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+.endorsement-text-badge strong {
+  font-family: var(--display);
+  font-size: clamp(2rem, 5vw, 4.2rem);
+  line-height: .95;
+}
+.endorsement-text-badge em {
+  color: rgba(255,255,255,.86);
+  font-style: normal;
+}
+.endorsement-text-badge--compact strong {
+  font-size: clamp(1.7rem, 3vw, 2.6rem);
+}
+
+.home-endorsement-media img {
+  width: 100%;
+  height: 100%;
+  min-height: 360px;
+  object-fit: contain;
+  background: #fff;
+}
+.home-endorsement-copy {
+  padding: clamp(1.1rem, 3vw, 1.8rem);
+  border-top: 1px solid var(--line);
+}
+.home-endorsement-copy h3 {
+  color: var(--blue-900);
+  font-size: clamp(2.2rem, 4.5vw, 4rem);
+  margin-bottom: .25rem;
+}
+.home-endorsement-copy p,
+.home-endorsement-copy span,
+.home-endorsement-summary li {
+  color: var(--muted);
+}
+.home-endorsement-copy span {
+  display: inline-block;
+  margin-top: .35rem;
+  font-weight: 900;
+}
+.home-endorsement-summary {
+  padding: clamp(1.4rem, 4vw, 2.4rem);
+  border-radius: var(--radius-lg);
+  background: var(--white);
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow-soft);
+}
+.home-endorsement-summary h3,
+.endorsement-group-heading h2,
+.featured-endorsement-mini h3,
+.endorsement-directory-copy h3,
+.faq-card-list summary {
+  color: var(--blue-900);
+}
+.home-endorsement-summary ul {
+  display: grid;
+  gap: .9rem;
+  margin: 1rem 0 1.4rem;
+  padding-left: 1.15rem;
+}
+.endorsement-stat-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: .75rem;
+  margin: 1.4rem 0;
+}
+.endorsement-stat-row span {
+  padding: .9rem;
+  border-radius: 18px;
+  background: rgba(21, 75, 145, .08);
+  color: var(--blue-900);
+  font-weight: 900;
+}
+.endorsement-stat-row strong {
+  display: block;
+  font-family: var(--display);
+  font-size: 2.2rem;
+  line-height: 1;
+}
+.featured-endorsement-grid,
+.endorsement-directory-grid {
+  display: grid;
+  gap: 1.25rem;
+}
+.featured-endorsement-mini,
+.endorsement-directory-card {
+  overflow: hidden;
+  border-radius: var(--radius-md);
+  background: var(--white);
+  box-shadow: var(--shadow-soft);
+  border: 1px solid var(--line);
+}
+.featured-endorsement-mini img,
+.endorsement-directory-image img {
+  width: 100%;
+  aspect-ratio: 1.12 / 1;
+  object-fit: cover;
+  background: #fff;
+  transition: transform .35s ease;
+}
+.endorsement-directory-image:hover img,
+.endorsement-directory-image:focus-visible img {
+  transform: scale(1.035);
+}
+.featured-endorsement-mini div,
+.endorsement-directory-copy {
+  padding: 1.1rem;
+}
+.featured-endorsement-mini p,
+.endorsement-directory-copy p,
+.endorsement-card-area,
+.endorsement-group-heading p,
+.faq-card-list p {
+  color: var(--muted);
+}
+.endorsement-group {
+  margin-top: clamp(2rem, 5vw, 3.5rem);
+}
+.endorsement-group-heading {
+  display: flex;
+  gap: 1rem;
+  align-items: end;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+  border-bottom: 3px solid rgba(21, 75, 145, .14);
+  padding-bottom: .8rem;
+}
+.endorsement-group-heading h2 {
+  margin: 0;
+  font-size: clamp(2rem, 4vw, 3.1rem);
+}
+.endorsement-group-heading p {
+  margin: 0;
+  font-weight: 900;
+}
+.endorsement-card-area {
+  display: inline-block;
+  margin-top: .35rem;
+  font-weight: 900;
+}
+.faq-card-list {
+  display: grid;
+  gap: 1rem;
+}
+.faq-card-list details {
+  border-radius: var(--radius-md);
+  background: var(--white);
+  border: 1px solid rgba(255,255,255,.28);
+  box-shadow: var(--shadow-soft);
+  overflow: hidden;
+}
+.faq-card-list summary {
+  cursor: pointer;
+  padding: 1rem 1.2rem;
+  font-family: var(--display);
+  font-size: 1.5rem;
+  font-weight: 900;
+}
+.faq-card-list p {
+  padding: 0 1.2rem 1.2rem;
+  margin: 0;
+}
+.endorsement-faq-section .section-heading p {
+  color: rgba(255,255,255,.86);
+}
+@media (min-width: 760px) {
+  .featured-endorsement-grid,
+  .endorsement-directory-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .home-endorsement-card {
+    grid-template-rows: 1fr auto;
+  }
+}
+@media (min-width: 1080px) {
+  .home-endorsement-layout,
+  .endorsement-overview-grid {
+    grid-template-columns: minmax(0, 1.1fr) minmax(320px, .9fr);
+  }
+  .home-endorsement-rotator {
+    min-height: 610px;
+  }
+  .endorsement-directory-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+@media (max-width: 760px) {
+  .endorsement-group-heading {
+    display: block;
+  }
+  .home-endorsement-rotator {
+    min-height: 560px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .home-endorsement-card {
+    transition: none;
+  }
+}
