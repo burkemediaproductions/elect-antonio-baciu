@@ -1990,3 +1990,136 @@ details p { margin: 0; padding: 0 1.2rem 1.2rem; color: var(--muted); }
     transition: none;
   }
 }
+
+
+/* Text-first endorsement presentation (no endorsement graphics on-site) */
+.home-endorsement-rotator--text {
+  min-height: clamp(360px, 40vw, 480px);
+  background:
+    radial-gradient(circle at 18% 12%, rgba(255, 255, 255, .96), rgba(255,255,255,0) 36%),
+    linear-gradient(135deg, rgba(21,75,145,.08), rgba(198,27,38,.08)),
+    var(--white);
+}
+.home-endorsement-card.endorsement-name-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1.15rem;
+  padding: clamp(1.35rem, 4vw, 2.4rem);
+  border-left: 8px solid var(--red-700);
+}
+.home-endorsement-card.endorsement-name-card::after,
+.featured-endorsement-mini.endorsement-name-card::after,
+.endorment-list-card::after {
+  content: "";
+  position: absolute;
+  right: -36px;
+  bottom: -36px;
+  width: 120px;
+  height: 120px;
+  border-radius: 999px;
+  background: rgba(21, 75, 145, .08);
+  pointer-events: none;
+}
+.endorsement-name-mark {
+  display: inline-grid;
+  place-items: center;
+  width: 4.35rem;
+  height: 4.35rem;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--blue-900), var(--blue-700));
+  color: var(--white);
+  font-family: var(--display);
+  font-size: 1.5rem;
+  line-height: 1;
+  letter-spacing: .03em;
+  box-shadow: var(--shadow-soft);
+  border: 3px solid rgba(255,255,255,.82);
+}
+.home-endorsement-copy {
+  border-top: 0;
+  padding: 0;
+}
+.home-endorsement-copy h3,
+.endorment-list-card h3,
+.featured-endorsement-mini.endorsement-name-card h3 {
+  font-size: clamp(2.1rem, 5vw, 4.15rem);
+  line-height: .95;
+}
+.home-endorsement-copy p,
+.home-endorsement-copy span,
+.featured-endorsement-mini.endorsement-name-card p,
+.endorment-list-card p {
+  font-size: 1.05rem;
+}
+.endorsement-category-pill {
+  display: inline-flex;
+  width: fit-content;
+  align-items: center;
+  gap: .4rem;
+  margin-top: .7rem;
+  padding: .4rem .72rem;
+  border-radius: 999px;
+  background: rgba(198, 27, 38, .1);
+  color: var(--red-700);
+  font-weight: 900;
+  font-size: .86rem;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+}
+.endorsement-stat-row--compact {
+  margin: 1.1rem 0 1.35rem;
+}
+.featured-endorsement-grid--text,
+.endorsement-directory-grid--text {
+  align-items: stretch;
+}
+.featured-endorsement-mini.endorsement-name-card,
+.endorment-list-card {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 1rem;
+  align-items: start;
+  padding: clamp(1rem, 2.5vw, 1.35rem);
+  overflow: hidden;
+  border-top: 5px solid var(--blue-900);
+}
+.featured-endorsement-mini.endorsement-name-card div:not(.endorsement-name-mark),
+.endorment-list-card .endorsement-directory-copy {
+  padding: 0;
+}
+.endorment-list-card:nth-child(2n),
+.featured-endorsement-mini.endorsement-name-card:nth-child(2n) {
+  border-top-color: var(--red-700);
+}
+.endorsement-group-count {
+  flex: 0 0 auto;
+  padding: .45rem .8rem;
+  border-radius: 999px;
+  background: rgba(21,75,145,.09);
+  color: var(--blue-900) !important;
+  font-weight: 900;
+}
+.endorsement-directory-grid--text .endorsement-card-area {
+  display: block;
+  color: var(--blue-900);
+}
+@media (min-width: 1080px) {
+  .home-endorsement-rotator--text {
+    min-height: 500px;
+  }
+  .endorsement-directory-grid--text {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 520px) {
+  .featured-endorsement-mini.endorsement-name-card,
+  .endorment-list-card {
+    grid-template-columns: 1fr;
+  }
+  .endorsement-name-mark {
+    width: 3.8rem;
+    height: 3.8rem;
+  }
+}
