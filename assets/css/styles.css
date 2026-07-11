@@ -2123,3 +2123,123 @@ details p { margin: 0; padding: 0 1.2rem 1.2rem; color: var(--muted); }
     height: 3.8rem;
   }
 }
+
+/* ==========================================================================
+   Campaign Live Media Hub Module
+   ========================================================================== */
+.media-live-hero {
+  background: radial-gradient(circle at 85% 15%, rgba(229, 24, 37, 0.4), transparent 35%), 
+              linear-gradient(135deg, #061933 0%, #0d3f7d 100%) !important;
+}
+
+.live-status-container {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: rgba(0, 0, 0, 0.35);
+  padding: 0.45rem 1rem;
+  border-radius: 999px;
+  margin-bottom: 1.25rem;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.live-pulse-dot {
+  width: 10px;
+  height: 10px;
+  background-color: var(--red-500);
+  border-radius: 50%;
+  box-shadow: 0 0 0 0 rgba(240, 50, 59, 0.7);
+  animation: live-pulse-glow 1.8s infinite;
+}
+
+@keyframes live-pulse-glow {
+  0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(240, 50, 59, 0.7); }
+  70% { transform: scale(1); box-shadow: 0 0 0 8px rgba(240, 50, 59, 0); }
+  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(240, 50, 59, 0); }
+}
+
+.live-status-container .status-text {
+  margin: 0;
+  font-size: 0.85rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.live-media-grid {
+  display: grid;
+  gap: 2rem;
+  margin-top: 3rem;
+}
+
+.live-video-card {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow-soft);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.live-video-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow);
+}
+
+.video-wrapper {
+  position: relative;
+  padding-bottom: 56.25%; /* Perfect 16:9 Aspect Ratio */
+  height: 0;
+  overflow: hidden;
+  background: #000;
+}
+
+.video-wrapper iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.live-video-body {
+  padding: 1.5rem;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.live-video-category {
+  display: block;
+  font-family: var(--display);
+  font-weight: 900;
+  font-size: 0.85rem;
+  color: var(--red-600);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.4rem;
+}
+
+.live-video-body h3 {
+  color: var(--blue-900);
+  font-size: 1.75rem;
+  margin-bottom: 0.6rem;
+  line-height: 1.1;
+}
+
+.live-video-body p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+/* Structural Layout Variations */
+@media (min-width: 760px) {
+  .feature-dual-column {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
