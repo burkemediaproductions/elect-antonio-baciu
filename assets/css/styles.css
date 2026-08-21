@@ -1870,6 +1870,45 @@ details p { margin: 0; padding: 0 1.2rem 1.2rem; color: var(--muted); }
   font-size: 2.2rem;
   line-height: 1;
 }
+.endorsement-public-safety-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 108px;
+  padding: .7rem 1rem;
+  border: 1px solid rgba(21, 75, 145, .12);
+  border-radius: 18px;
+  background: rgba(21, 75, 145, .045);
+  transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease, background-color .2s ease;
+}
+.endorsement-public-safety-link:hover,
+.endorsement-public-safety-link:focus-visible {
+  transform: translateY(-2px);
+  border-color: rgba(198, 27, 38, .45);
+  background: var(--white);
+  box-shadow: 0 12px 28px rgba(10, 39, 111, .12);
+}
+.endorsement-public-safety-link:focus-visible {
+  outline: 3px solid rgba(198, 27, 38, .28);
+  outline-offset: 3px;
+}
+.endorsement-public-safety-link img {
+  display: block;
+  width: auto;
+  max-width: 100%;
+  height: 88px;
+  object-fit: contain;
+}
+@media (max-width: 760px) {
+  .endorsement-public-safety-link {
+    grid-column: 1 / -1;
+    min-height: 124px;
+    margin-top: .15rem;
+  }
+  .endorsement-public-safety-link img {
+    height: 104px;
+  }
+}
 .featured-endorsement-grid,
 .endorsement-directory-grid {
   display: grid;
