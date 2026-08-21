@@ -79,7 +79,7 @@
     {
       "@type": "ItemList",
       "name": "Antonio Baciu endorsement list",
-      "numberOfItems": 21,
+      "numberOfItems": 24,
       "itemListElement": [
         {
           "@type": "ListItem",
@@ -206,6 +206,24 @@
           "position": 21,
           "name": "Raymond Lafleur — LGBT Community Organizer, Community Endorsement",
           "url": "https://antoniofordistrict5.com/endorsements/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 22,
+          "name": "Cathedral City Professional Firefighters Association (Local 3654) — Organization Endorsement",
+          "url": "https://antoniofordistrict5.com/endorsements/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 23,
+          "name": "Steve Sanchez — La Quinta Council Member",
+          "url": "https://antoniofordistrict5.com/endorsements/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 24,
+          "name": "Josie Diaz — Community Organizer",
+          "url": "https://antoniofordistrict5.com/endorsements/"
         }
       ]
     },
@@ -240,6 +258,47 @@
     }
   ]
 }</script>
+<style>
+  .organization-endorsement-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+    gap: 1.5rem;
+  }
+  .organization-endorsement-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: clamp(1.5rem, 4vw, 2.5rem);
+    text-align: center;
+  }
+  .organization-endorsement-logo-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 245px;
+    margin-bottom: 1.25rem;
+    padding: 1.25rem;
+    border: 1px solid rgba(10, 39, 111, 0.12);
+    border-radius: 22px;
+    background: #fff;
+  }
+  .organization-endorsement-logo {
+    display: block;
+    width: 100%;
+    max-width: 260px;
+    max-height: 220px;
+    object-fit: contain;
+  }
+  .organization-endorsement-card .endorsement-directory-copy {
+    width: 100%;
+  }
+  @media (max-width: 640px) {
+    .organization-endorsement-logo-wrap { min-height: 205px; }
+    .organization-endorsement-logo { max-height: 180px; }
+  }
+</style>
 </head>
 <body>
 <a class="skip-link" href="#main-content">Skip to content</a>
@@ -327,7 +386,7 @@
 <p>Antonio Baciu’s campaign has earned endorsements from Cathedral City Mayor Raymond Gregory, Cathedral City Councilmembers Nancy Ross and Rita Lamb, Cathedral City Parks and Community Events Commission members Ashley McGullam and Erin Hyland, Riverside County Supervisor V. Manuel Perez, education leaders from PSUSD and College of the Desert, neighboring city leaders, the Hispanic American Chamber of Commerce, Desert Stonewall Democrats, and local community organizers.</p>
 <p>This endorsement coalition reflects broad support across Cathedral City, District 5, the Coachella Valley, education, business, and community service networks.</p>
 <div aria-label="Endorsement summary" class="endorsement-stat-row">
-<span><strong>21</strong> Total Endorsements</span>
+<span><strong>24</strong> Total Endorsements</span>
 <span><strong>5</strong> Cathedral City Voices</span>
 <span><strong>6</strong> Education Leaders</span>
 </div>
@@ -509,7 +568,7 @@
 <h2 id="county-and-regional-leaders-title">County and Community Leaders</h2>
 <p>Regional and neighboring-city public servants supporting Antonio Baciu and Cathedral City District 5.</p>
 </div>
-<p class="endorsement-group-count">7 endorsements</p>
+<p class="endorsement-group-count">8 endorsements</p>
 </div>
 <div class="endorsement-directory-grid endorsement-directory-grid--text">
 <article class="endorment-list-card endorsement-directory-card" itemscope itemtype="https://schema.org/Person">
@@ -580,6 +639,15 @@
     <p itemprop="jobTitle">Former Desert Healthcare Board Member</p>
     <span class="endorsement-card-area">District 1</span>
     <span class="endorsement-category-pill">Regional healthcare leader</span>
+  </div>
+</article>
+<article class="endorment-list-card endorsement-directory-card" itemscope itemtype="https://schema.org/Person">
+  <div class="endorsement-name-mark" aria-hidden="true">SS</div>
+  <div class="endorsement-directory-copy">
+    <p class="eyebrow eyebrow--blue">Endorsed by</p>
+    <h3 itemprop="name">Steve Sanchez</h3>
+    <p itemprop="jobTitle">La Quinta Council Member</p>
+    <span class="endorsement-category-pill">Neighboring city leader</span>
   </div>
 </article>
 </div>
@@ -655,13 +723,36 @@
 </article>
 </div>
 </section>
+<section aria-labelledby="public-safety-organization-endorsements-title" class="endorsement-group">
+<div class="endorsement-group-heading">
+<div>
+<h2 id="public-safety-organization-endorsements-title">Public Safety Organization Endorsements</h2>
+<p>Public safety organizations supporting Antonio Baciu’s campaign to keep Cathedral City moving forward.</p>
+</div>
+<p class="endorsement-group-count">1 endorsement</p>
+</div>
+<div class="organization-endorsement-grid">
+<article class="endorment-list-card endorsement-directory-card organization-endorsement-card" itemscope itemtype="https://schema.org/Organization">
+  <div class="organization-endorsement-logo-wrap">
+    <img class="organization-endorsement-logo" src="/assets/img/endorsements/firefighters-local-3654.png" alt="Cathedral City Professional Firefighters Association Local 3654 logo" width="1078" height="958" itemprop="logo"/>
+  </div>
+  <div class="endorsement-directory-copy">
+    <p class="eyebrow eyebrow--blue">Endorsed by</p>
+    <h3 itemprop="name">Cathedral City Professional Firefighters Association</h3>
+    <p itemprop="description">Local 3654</p>
+    <span class="endorsement-card-area">Organization Endorsement</span>
+    <span class="endorsement-category-pill">Public safety organization</span>
+  </div>
+</article>
+</div>
+</section>
 <section aria-labelledby="community-and-organization-endorsements-title" class="endorsement-group">
 <div class="endorsement-group-heading">
 <div>
 <h2 id="community-and-organization-endorsements-title">Community and Organization Endorsements</h2>
 <p>Community advocates, business organizations, LGBTQ+ civic organizations, and local voices supporting Antonio Baciu.</p>
 </div>
-<p class="endorsement-group-count">3 endorsements</p>
+<p class="endorsement-group-count">4 endorsements</p>
 </div>
 <div class="endorsement-directory-grid endorsement-directory-grid--text">
 <article class="endorment-list-card endorsement-directory-card" itemscope itemtype="https://schema.org/Organization">
@@ -691,6 +782,15 @@
     <h3 itemprop="name">Raymond Lafleur</h3>
     <p itemprop="jobTitle">LGBT Community Organizer</p>
     <span class="endorsement-card-area">Community Endorsement</span>
+    <span class="endorsement-category-pill">Community organizer</span>
+  </div>
+</article>
+<article class="endorment-list-card endorsement-directory-card" itemscope itemtype="https://schema.org/Person">
+  <div class="endorsement-name-mark" aria-hidden="true">JD</div>
+  <div class="endorsement-directory-copy">
+    <p class="eyebrow eyebrow--blue">Endorsed by</p>
+    <h3 itemprop="name">Josie Diaz</h3>
+    <p itemprop="jobTitle">Community Organizer</p>
     <span class="endorsement-category-pill">Community organizer</span>
   </div>
 </article>
