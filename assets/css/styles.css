@@ -1901,7 +1901,6 @@ details p { margin: 0; padding: 0 1.2rem 1.2rem; color: var(--muted); }
 }
 @media (max-width: 760px) {
   .endorsement-public-safety-link {
-    grid-column: 1 / -1;
     min-height: 124px;
     margin-top: .15rem;
   }
