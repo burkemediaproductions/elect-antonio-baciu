@@ -1881,6 +1881,12 @@ details p { margin: 0; padding: 0 1.2rem 1.2rem; color: var(--muted); }
   background: rgba(21, 75, 145, .045);
   transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease, background-color .2s ease;
 }
+.endorsement-public-safety-logos {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: .75rem;
+}
 .endorsement-public-safety-link:hover,
 .endorsement-public-safety-link:focus-visible {
   transform: translateY(-2px);
@@ -1900,6 +1906,9 @@ details p { margin: 0; padding: 0 1.2rem 1.2rem; color: var(--muted); }
   object-fit: contain;
 }
 @media (max-width: 760px) {
+  .endorsement-public-safety-logos {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
   .endorsement-public-safety-link {
     min-height: 124px;
     margin-top: .15rem;
