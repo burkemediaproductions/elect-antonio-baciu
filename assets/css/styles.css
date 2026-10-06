@@ -2290,3 +2290,9 @@ details p { margin: 0; padding: 0 1.2rem 1.2rem; color: var(--muted); }
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
+
+
+/* SMS compliance / opt-in */
+.sms-consent-line { align-items:flex-start; padding:1rem; border:1px solid rgba(8,47,99,.16); border-radius:16px; background:rgba(21,75,145,.045); font-size:.94rem; line-height:1.55; }
+.sms-consent-line a,.sms-form-note a { text-decoration:underline; text-underline-offset:.15em; }
+.sms-form-note { margin:.35rem 0 .25rem; padding:.9rem 1rem; border-left:4px solid var(--blue-700); border-radius:0 14px 14px 0; background:rgba(21,75,145,.05); color:var(--muted); font-size:.94rem; }
