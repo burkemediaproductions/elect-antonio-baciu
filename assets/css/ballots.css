@@ -7,10 +7,25 @@
   align-items: center;
   padding: clamp(8rem, 14vw, 11rem) 0 clamp(5rem, 9vw, 8rem);
   color: var(--white);
+  background: #041632;
+  overflow: hidden;
+}
+.ballot-hero-video {
+  position: absolute;
+  inset: 0;
+  z-index: -3;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+.ballot-hero-shade {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
   background:
     linear-gradient(92deg, rgba(5, 28, 62, .97) 0%, rgba(8, 47, 99, .91) 46%, rgba(8, 47, 99, .55) 72%, rgba(200, 15, 30, .28) 100%),
-    url('/assets/img/antonio-at-panorama-park.jpg') center 38% / cover no-repeat;
-  overflow: hidden;
+    radial-gradient(circle at 72% 22%, rgba(255,255,255,.10), transparent 28%);
 }
 .ballot-hero::after {
   content: "";
@@ -197,8 +212,13 @@
   .ballot-priority-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 }
 @media (max-width: 760px) {
-  .ballot-hero { min-height: auto; background-position: 62% center; }
-  .ballot-hero::before { content: ""; position: absolute; inset: 0; z-index: -1; background: rgba(4,22,50,.18); }
+  .ballot-hero { min-height: auto; }
+  .ballot-hero-video { object-position: center center; }
+  .ballot-hero-shade {
+    background:
+      linear-gradient(180deg, rgba(5,28,62,.74) 0%, rgba(8,47,99,.72) 52%, rgba(5,28,62,.92) 100%),
+      linear-gradient(90deg, rgba(5,28,62,.54), rgba(200,15,30,.18));
+  }
   .ballot-hero h1 { font-size: clamp(4rem, 18vw, 6rem); }
   .ballot-hero-card { margin-top: .5rem; }
   .ballot-close-actions .button { width: 100%; }
